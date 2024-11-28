@@ -1,5 +1,8 @@
 .App {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -28,10 +31,49 @@
   color: #61dafb;
 }
 
+.Main-box {
+  width: 80vh; /* Main box width set to 80vh */
+  height: 30vh;
+  margin-bottom: 50vh;
+  position: relative;
+  background: rgb(244, 244, 253);
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  align-items: center; /* Center items horizontally */
+  padding: 2vh; /* Add padding to ensure spacing between elements */
+  box-sizing: border-box; /* Ensure padding and borders don't exceed width */
+}
+
+.Next-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Full width relative to parent */
+  padding: 1vh; /* Add some padding to the button */
+  margin-top: 5vh
+}
+
+.OpeningText {
+  padding-bottom: 3vh;
+  text-align: center; /* Center the text horizontally */
+}
+
+.Username-input {
+  margin-top: 8vh;
+  position: relative;
+  flex-grow: 1;
+  width: 80vh; /* Full width relative to parent */
+  height: 5vh;
+  margin-bottom: 1vh;
+  box-sizing: border-box; /* Ensures padding/border don't overflow */
+  padding-left: 1vh; /* Add padding inside the input field */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
