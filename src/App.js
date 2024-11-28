@@ -23,7 +23,7 @@ function App() {
   const handleClick = () => {
     setBgNumber(bgNumber + 1)
     setIsFirstClick(prevClick => !prevClick)
-    setOpeningText(prevText => prevText + "aabbcc")
+    setOpeningText(prevText => prevText + "test...")
   };
 
   // Set up the event listener for document click
