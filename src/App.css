@@ -48,9 +48,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Full width relative to parent */
+  background-color: aquamarine;
+  width: 80vh; /* Full width relative to parent */
   padding: 1vh; /* Add some padding to the button */
-  margin-top: 5vh
+  margin-top: 2vh;
+  margin-bottom: -2vh;
+  border: none;
+}
+
+.First-page {
+  height: 100vh; /* Full height of the viewport */
+  font-size: 20px; /* Font size */
+  background-color: rgba(200, 200, 200, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black; /* Text color */
+  border: none; /* Remove border */
+  width: 100%; /* Full width */
+  padding: 1rem; /* Add padding */
+  box-sizing: border-box; /* Include padding in size */
 }
 
 .OpeningText {
@@ -62,11 +79,15 @@
   margin-top: 8vh;
   position: relative;
   flex-grow: 1;
-  width: 80vh; /* Full width relative to parent */
-  height: 5vh;
-  margin-bottom: 1vh;
+  width: 105%;
+  height: 100%;
+  text-justify: center;
   box-sizing: border-box; /* Ensures padding/border don't overflow */
   padding-left: 1vh; /* Add padding inside the input field */
+  font-size: 16px;
+  background-color: #61dafb;
+  resize: none;
+  border: none;
 }
 
 @keyframes App-logo-spin {
