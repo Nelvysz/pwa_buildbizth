@@ -1,35 +1,384 @@
-import './App.css';
 import React, { useEffect, useState } from 'react';
+import "./App.css"
+import "./sliderWithEmoji.css"
+import backgroundImage1 from './background/bg1.svg';
+import backgroundImage2 from './background/bg2.svg'
+import backgroundImage3 from './background/bg3.svg'
+import backgroundImage4 from './background/bg4.svg'
+import backgroundImage5 from './background/bg5.svg'
+import backgroundImage6 from './background/bg6.svg'
+import backgroundImage7 from './background/bg7.svg'
+import backgroundImage8 from './background/bg8.svg'
+import backgroundImage9 from './background/bg9.svg'
+import floating1 from './background/floating1.svg'
+import finger from './background/finger2.svg'
+import saveIcon from './icon/save.svg'
+import shareIcon from './icon/share.svg'
 
-// Components
-const FirstPage = ({ text, onClick }) => (
-  <button className="First-page" onClick={onClick}>
-    <div className="Main-box">{text}</div>
-  </button>
-);
 
-const NextButton = ({pageIndex, handleNextButton}) => (
+const TopPageMessage = ({ text, onClick }) => {
+  return (
+    <button className="First-page" onClick={onClick}>
+      <div className="FirstBox" >
+        <div className='firstpagemessage'>
+          {text.split(",").map((line, index) => (
+            <div key={index} className='sec'>{line}</div>
+          ))}
+        </div>
+        <img src={finger} alt="tap finger print" className='fingerPrint' />
+      </div>
+    </button>)
+}
+
+const TopPageMessage2 = ({ text, onClick, showFinger = true }) => {
+  return (
+    <button className="First-page" onClick={onClick}>
+      <div className="FirstBox" >
+        <div className='firstpagemessage'>
+          <>
+            <div>อดีตคือบทเรียนนะ แต่ปัจจุบันคือ</div>
+            <div>
+              <span>"</span>
+              <span style={{ color: '#9881EA' }}>ของขวัญ</span>
+              <span>"</span>
+            </div>
+            <div>ที่เราสร้างเองได้เสมอ...</div>
+          </>
+        </div>
+        {showFinger === true ? (<img src={finger} alt="tap finger print" className='fingerPrint' />) : null}
+      </div>
+    </button>)
+}
+
+const AnimateMessage = ({ setPageIndex, setBgIndex }) => {
+  const [currentText, setCurrentText] = useState(0); // Track which text to show
+  const textList = [
+    "ภาพเหตุการณ์ในปีนี้ทั้งหมด",
+    "ค่อยๆฉายขึ้นมในหัวของคุณ,ราวกับละครเรื่องหนึ่ง",
+    ""
+  ];
+
+  useEffect(() => {
+    console.log("current text", currentText)
+    if (currentText < textList.length - 1) {
+      if (currentText === 1) {
+        setBgIndex((prev) => prev + 1)
+      }
+      const timer = setTimeout(() => {
+        setCurrentText((prev) => prev + 1);
+      }, 3000); // Delay of 1 second (1000 ms)
+
+      return () => clearTimeout(timer); // Cleanup the timeout
+    }
+    else {
+      setPageIndex((prev) => prev + 1)
+    }
+  }, [currentText]); // Depend on `currentText`
+
+  return (
+    <div className="First-page" >
+      <div className="AnimateBox">
+        <div className='firstpagemessage'>
+          {textList[currentText].split(",").map((line, index) => (
+            <div key={index} className='sec'>{line}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AnimateMessage2 = ({ pageIndex, setPageIndex }) => {
+  const [currentText, setCurrentText] = useState(0); // Track which text to show
+  const textList = [
+    "ก่อนจากกันเรามีของที่ระลึกมามอบให้คุณนะ",
+    "ฝากติดตาม Instagram: @buildbizth,เพื่อติดตามข่าวสาร,และเป็นกำลังใจให้พวกเราด้วยนะ",
+    ""
+  ];
+
+  useEffect(() => {
+    if (currentText < textList.length - 1) { // Check if there is more text to show
+      const timer = setTimeout(() => {
+        setCurrentText((prev) => prev + 1);
+      }, 3000); // Delay of 1 second (1000 ms)
+
+      return () => clearTimeout(timer); // Cleanup the timeout
+    } else {
+      setPageIndex(1)
+    }
+  }, [currentText]); // Depend on `currentText`
+
+  return (
+    <div className="First-page">
+      <div className="AnimateBox">
+        <div className="firstpagemessage">
+          {textList[currentText].split(",").map((line, index) => (
+            <div key={index} >
+              {line}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div >
+
+  );
+};
+const AnimateMessage3 = ({ setPageIndex, setBgIndex, userName }) => {
+  const [currentText, setCurrentText] = useState(0); // Track which text to show
+  const textList = [
+    "ไหนดูซิ คุณ" + userName + "วาดภาพตัวเองในอนาคต,เป็นอย่างไรบ้างนะ...?",
+    "",
+    ""
+  ];
+
+  useEffect(() => {
+    console.log("current text", currentText)
+    if (currentText < 2) {
+      if (currentText === 1) { setBgIndex(5) }
+      const timer = setTimeout(() => {
+        setCurrentText((prev) => prev + 1);
+      }, 3000); // Delay of 1 second (1000 ms)
+
+      return () => clearTimeout(timer); // Cleanup the timeout
+    }
+    else {
+      setPageIndex((prev) => prev + 1)
+    }
+  }, [currentText]); // Depend on `currentText`
+
+  return (
+    <div className="First-page" >
+      <div className="AnimateBox">
+        {textList[currentText] !== "" && (<div className='firstpagemessage'>
+          {textList[currentText].split(",").map((line, index) => (
+            <div key={index} className='sec'>{line}</div>
+          ))}
+        </div>)}
+      </div>
+    </div>
+  );
+};
+
+const RangeSlider = ({ }) => {
+  const [answer, setAnswer] = useState("")
+  const [score, setScore] = useState(5);
+  const emojis = ["😡", "😠", "😕", "😐", "🙂", "😊", "😀", "😄", "😆", "😁", "🤩"];
+  const handleSliderChange = (event) => {
+    setScore(Number(event.target.value));
+  };
+  const handleChange = (event) => {
+    setAnswer(event.target.value); // Update state when the textarea changes
+  };
+  return (
+    <div className="RatingBox-3">
+      <h3>ปีนี้คุณให้คะแนนตัวเองเท่าไหร่?</h3>
+      <div className="score-display">
+        <span className="score">{score}</span>
+        <span className="emoji">{emojis[score]}</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="10"
+        value={score}
+        className="slider"
+        onChange={handleSliderChange}
+        style={{
+          background: `linear-gradient(to right, #8486E6 ${score * 10}%, rgba(173, 154, 238, 0.2) ${score * 10}%)`
+        }}
+      />
+      <textarea
+        value={answer}
+        onChange={handleChange}
+        placeholder="พิมพ์เหตุผลของคุณที่นี่..."
+        className="reason-box"
+      ></textarea>
+    </div>
+  );
+}
+
+const ThreeQuestionBox = ({ inputs, setInputs }) => {
+  console.log("inputs ...", inputs)
+  const handleInputChange = (index, value) => {
+    const newInputs = [...inputs]; // Create a copy of the inputs array
+    newInputs[index] = value; // Update the specific input value
+    setInputs(newInputs); // Update the state
+  };
+
+  return (
+    <div className="RatingBox-5">
+      <h3>มาลองตั้งเป้าหมายสำคัญในชีวิตสัก 3 ข้อกัน</h3>
+      <div className='questionList'>
+        {inputs.map((input, index) => (
+          <input
+            key={index}
+            type="text"
+            className="goalInput"
+            value={input}
+            onChange={(e) => handleInputChange(index, e.target.value)}
+            placeholder={`เป้าหมายที่ ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const QuestionBox = ({ text }) => {
+  const [answer, setAnswer] = useState("")
+  const handleChange = (event) => {
+    setAnswer(event.target.value); // Update state when the textarea changes
+  };
+  return (
+    <div className='RatingBox-3'>
+      <h3>{text.split(",").map((line, index) => (
+        <div key={index} className='sec'>{line}</div>
+      ))}</h3>
+      <textarea
+        value={answer}
+        onChange={handleChange}
+        placeholder="พิมพ์คำตอบของคุณที่นี่..."
+        className="reason-box-2"
+      ></textarea>
+    </div>
+  )
+}
+
+const QuestionBox2 = ({ text, answer, setAnswer }) => {
+  const handleChange = (event) => {
+    setAnswer(event.target.value); // Update state when the textarea changes
+  };
+  return (
+    <div className='RatingBox-3'>
+      <h3>{text.split(",").map((line, index) => (
+        <div key={index} className='sec'>{line}</div>
+      ))}</h3>
+      <textarea
+        value={answer}
+        onChange={handleChange}
+        placeholder="พิมพ์คำตอบของคุณที่นี่..."
+        className="reason-box-2"
+      ></textarea>
+    </div>
+  )
+}
+
+function FirstPage({ setUserName, pageIndex, onClick }) {
+  const [user, setUser] = useState("")
+  if (pageIndex === 0) {
+    return (<TopPageMessage text={"นี่ก็ถึงเดือนสุดท้ายของปีแล้วนะ"} onClick={onClick} />)
+  }
+  if (pageIndex === 1) {
+    return (
+      <div className="Main-box">
+        <div className="questionbox-2">
+          <div className="messagebox-2">สวัสดี คุณชื่ออะไรนะ...?</div>
+          <input
+            type="text"
+            className="Username-input"
+            value={user}
+            onChange={(e) => {
+              setUser(e.target.value)
+              setUserName(e.target.value)
+            }}
+            placeholder="อยากให้เราเรียกคุณว่าอะไร..."
+          />
+        </div>
+        <NextButton handleNextButton={onClick} />
+      </div >
+    )
+  }
+  if (pageIndex === 2) {
+    return ((<TopPageMessage text={"เอาล่ะ " + user + ",ลองหลับตาแล้วนึกถึงห้องของคุณนะ"} onClick={onClick} />))
+  }
+};
+
+const NextButton = ({ handleNextButton }) => (
   <button className="Next-button" onClick={handleNextButton}>
     ไปต่อ
   </button>
 );
 
-const SecondPage = ({ text, pageIndex, onClick }) => (
-  <button className="First-page" onClick={onClick}>
-    {pageIndex === 3 ? (
-      <div className="secondPageLastBox">
-        สมุดนั้นก็คือ"ไดอารี่"<br />
-        ที่จะพาคุณทบทวนเรื่องราวที่่ผ่านมาในปีนี้
+function SecondPage({ text, pageIndex, showComponent, setShowComponent, onClick }) {
+  const textList = ["คุณลืมตาขึ้นมาแล้วพบกับ,สมุดเล่มหนึ่งที่วางอยู่บนโต๊ะ", "คุณเดินเข้าไป ใกล้ ใกล้ ...", "", "ลองเปิดดูสิ..."]
+  if ([0, 1].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />)
+  }
+  if (pageIndex === 2) {
+    if (showComponent) {
+      return (
+        <button className="First-page" onClick={onClick}>
+          <div className="FirstBox" >
+            <div className='firstpagemessage'>
+              <div style={{ display: "flex" }}>
+                <div>สมุดเล่มนั้นก็คือ </div>
+                <div style={{ color: "#9881EA" }}>"ไดอารี่"</div>
+              </div>
+              <div>ที่จะพาคุณทบทวนเรื่องราวที่ผ่านมาในปีนี้</div>
+            </div>
+            <img src={finger} alt="tap finger print" className='fingerPrint' />
+          </div>
+        </button>)
+    }
+  }
+  if (pageIndex === 3) {
+    return <TopPageMessage text={textList[pageIndex]} onClick={onClick} />
+  }
+};
+
+function ThirdPage({ text, pageIndex, userName, onClick, setPageIndex, setBgIndex, setAnsetwer }) {
+  const textList = ["", "ปีนี้คุณรู้สึกยังไงบ้าง...", "ปีนี้คุณให้คะแนนตัวเองเท่าไร?", "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย?", "แล้วเรื่องที่ภูมิใจล่ะ?", "ว้าว ดูเหมือนว่าคุณ " + userName + ",ผ่านอะไรมาเยอะเหมือนกันนะ", "คุณเก่งมากๆเลยแหละ,เราภูมิใจในตัวคุณที่สุดเลย", "เคยคิดอยากย้อนเวลากลับไปมั้ย?", "", "เติบโตและเรียนรู้ไปด้วยกันนะ,อะไรที่ผ่านมาแล้วก็ให้ผ่านไป", "อย่าเก็ยอดีต มาฉุดรั้งตัวเราในอนาคตเลยนะ"]
+  if ([0].includes(pageIndex)) {
+    return (<AnimateMessage onClick={onClick} setPageIndex={setPageIndex} setBgIndex={setBgIndex} />)
+  }
+  if ([1].includes(pageIndex)) {
+
+    return (<ChoiceBox1
+      text={textList[pageIndex]}
+      onClick={onClick}
+    />)
+  }
+  if ([2].includes(pageIndex)) {
+    return (
+      <div className='slider-container'>
+        <RangeSlider />
+        <NextButton handleNextButton={onClick} />
       </div>
-    ) : (
-      <div className="SecondPageBox">
-        {text.split(",").map((line, index) => (
-          <div key={index}>{line}</div>
-        ))}
+    )
+  }
+  if ([3].includes(pageIndex)) {
+    return (
+      <div className='questioncontainer'>
+        <QuestionBox text={textList[pageIndex]} />
+        <NextButton handleNextButton={onClick} />
       </div>
-    )}
-  </button>
-);
+    )
+  }
+  if ([4].includes(pageIndex)) {
+    return (
+      <div className='questioncontainer'>
+        <QuestionBox text={textList[pageIndex]} />
+        <NextButton handleNextButton={onClick} />
+      </div>
+    )
+  }
+  if ([5, 6].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />)
+  }
+  if ([7].includes(pageIndex)) {
+    return (
+      <ChoiceBox2
+        text={textList[pageIndex]}
+        onClick={onClick} />
+    )
+  }
+  if ([8].includes(pageIndex)) {
+    return (<TopPageMessage2 text={textList[pageIndex]} onClick={onClick} />)
+  }
+  if ([9, 10].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />)
+  }
+};
 
 const TextButton = ({ text, onClick }) => (
   <button className='choiceButton' onClick={onClick}>
@@ -37,27 +386,135 @@ const TextButton = ({ text, onClick }) => (
   </button>
 )
 
-const ThirdPage = ({ pageIndex, username ,onClick }) => (
-  <button className="First-page" onClick={onClick}>
-    {pageIndex === 0 ? (
-      <div className="ThirdBgBox">
-        ภาพเหตุการณ์ในปีนี้ทั้งหมด <br />
-        ค่อยๆฉายขึ้นในหัวของคุณ <br />
-        ราวกับละครเรื่องหนึ่ง
-      </div>
-    ):
-    (
-      <>
-        ว้าว ดูเหมือนว่าคุณ {username} <br/>
-        ผ่านอะไรมาเยอะเหมือนกันนะ
-      </>
-    )
-    }
+const TextButton2 = ({ text, onClick }) => (
+  <button className='choiceButton-2' onClick={onClick}>
+    {text}
   </button>
-);
+)
 
-function RatingBox({ text, pageIndex, message, setMessage, onClick}) {
-  const pageList = [2, 3, 4]
+function ForthPage({ username, pageIndex, inputs, setInputs, onClick, setPageIndex, setBgIndex, setAnswer }) {
+  const textList = [
+    "",
+    "การตั้งเป้าหมายในชีวิตถือเป็นสิ่งที่ช่วยทำให้คุณมี,ทิศทางและความหมายในการดำเนินชีวิต",
+    "",
+    "มันยอดเยี่ยมมากเลยนะ คุณว่าไหม,แต่อย่่าลืมวางแผนด้วยล่ะ,แผนที่จะพาคุณไปยังเป้าหมายที่ตั้งไว้",
+    "งั้นเรามาวางแผน เพื่อให้ไปถึงเป้าหมาย,ที่ตั้งไว้กันเถอะ",
+    "ไม่ว่าระหว่างทางจะเจออะไร,จงเชื่อมั่นและมีความหวังเสทอ",
+    "สุดท้ายนี้อยากบอกอะไรกับตัวเอง,ทั้งในปีนี้และปีถัดไปบ้าง..."
+  ];
+
+  if ([0].includes(pageIndex)) {
+    return (<AnimateMessage3 setBgIndex={setBgIndex} setPageIndex={setPageIndex} userName={username} />);
+  }
+
+  if ([1, 3, 5].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />);
+  }
+
+  if ([2].includes(pageIndex)) {
+    return (
+      <div className='questioncontainer-2'>
+        <ThreeQuestionBox inputs={inputs} setInputs={setInputs} />
+        <NextButton handleNextButton={onClick} />
+      </div>
+    )
+  }
+  if ([4, 6].includes(pageIndex)) {
+    return (
+      <div className='questioncontainer'>
+        <QuestionBox2 text={textList[pageIndex]} setAnswer={setAnswer} />
+        <NextButton handleNextButton={onClick} />
+      </div>
+    )
+  }
+
+}
+
+function FifthPage({ username, pageIndex, setPageIndex, onClick }) {
+  useEffect(() => {
+    if (pageIndex === 0) {
+      const timer = setTimeout(() => {
+        setPageIndex((prev) => prev + 1);
+      }, 1000); // Delay of 1 second (1000 ms)
+      return () => clearTimeout(timer); // Cleanup the timeout
+    }
+  }, [pageIndex]); // Depend on `currentText`
+  const textList = [
+    "",
+    "เอาล่ะ...,เราได้บันทึกเรื่องราวของคุณ" + username + ",ลงไดอารี่เล่มนี้เรียบร้อยแล้ว",
+    "ไม่ว่าที่ผ่านทาจะยากแค่ไหน,คุณเก่งมากที่ผ่านมันมาได้"
+
+  ];
+  if ([1, 2].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />);
+  }
+}
+
+function SixthPage({ pageIndex, setPageIndex, onClick }) {
+  useEffect(() => {
+    if (pageIndex === 0) {
+      const timer = setTimeout(() => {
+        setPageIndex((prev) => prev + 1);
+      }, 3000); // Delay of 1 second (1000 ms)
+      return () => clearTimeout(timer); // Cleanup the timeout
+    }
+  }, [pageIndex]); // Depend on `currentText`
+  const textList = [
+    "",
+    "จงภูมิใจในตัวเอง,ไม่ว่าตอนนี้คุณกำลังอยู่ในจุดไหน,ถ้าคุณมุ่งมั่นตั้งใจ,คุณก็ไปถึงเป้าหมายนั้นได้นะ",
+    "หวังว่าปีหน้า เราจะได้รับข่าวดีจากคุณนะ..."
+
+  ];
+  if ([1, 2].includes(pageIndex)) {
+    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />);
+  }
+}
+
+function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answer }) {
+  if ([0].includes(pageIndex)) {
+    return (<AnimateMessage2 setPageIndex={setPageIndex} pageIndex={pageIndex} />);
+  }
+  if ([1].includes(pageIndex)) {
+    return (
+      <div className='FinalPage'>
+        ของที่ระลึกจากเรา BuildBiz
+        <div className='GiftBox'>
+          <div style={{ "paddingTop": "3%" }}>
+            "{userName}"
+          </div>
+          <div className='GiftMessage'>
+            เป้าหมายอันยิ่งใหญ่
+            <div className='Goals-3'>
+              <span>1. {inputs[0]}</span>
+              <span>2. {inputs[1]}</span>
+              <span>3. {inputs[2]}</span>
+            </div>
+            เส้นทางสู่ความสำเร็จ <br />
+            <div className='answer'>
+              {answer}
+            </div>
+          </div>
+          < div className='FinalQoute'>
+            "เราต่างไม่มีใครสมบูรณ์แบบ เราต่างเจ็บปวดได้ <br />
+            ร้องไห้ได้ โอบกอดตัวเองไว้เสมอ <br />
+            แม้จะไม่สมบูรณ์แบบก็ตาม..."
+          </div>
+        </div>
+        <div></div>
+        <button className='savePicture'>
+          <img src={saveIcon} alt="save icon" className='saveIcon' />
+          บันทึกรูปภาพ
+        </button>
+        <button className='ShareSite'>
+          <img src={shareIcon} alt="save icon" className='saveIcon' />
+          ส่งเว็ปนี้ให้เพื่อนคุณเล่น
+        </button>
+      </div>
+    )
+  }
+}
+
+function ChoiceBox1({ text, onClick }) {
   return (
     <div className="RatingBox">
       <div className='RatingText'>
@@ -65,32 +522,30 @@ function RatingBox({ text, pageIndex, message, setMessage, onClick}) {
           <div key={index}>{line}</div>
         ))}
       </div>
+      <div className='buttonList'>
+        <TextButton text={"สนุกกว่าปีไหนๆเลยแหละ"} onClick={onClick} />
+        <TextButton text={"ก็สนุกดีนะ ได้เจออะไรใหม่ๆเยอะเลย"} onClick={onClick} />
+        <TextButton text={"เฉยๆนะ ไม่ค่อยมีอะไรน่าตืื่นเต้นเลย"} onClick={onClick} />
+        <TextButton text={"เหนื่อยอะ แต่ก็ผ่านมาได้"} onClick={onClick} />
+        <TextButton text={"หนักหน่วงมาก อยากให้ผ่านปีนี้ไปไว ๆ จัง"} onClick={onClick} />
+      </div>
+    </div>
+  )
+}
 
-      {
-        pageList.includes(pageIndex) ? (
-          <>
-            <input
-              type="text"
-              className="Messageinput"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="พิมพ์คำตอบของคุณที่นี่..."
-            />
-             <NextButton pageIndex={pageIndex} handleNextButton={onClick}/>
-          
-          </>
-        ) :
-          (
-            <div className='buttonList'>
-              <TextButton text={"สนุกกว่าปีไหนๆเลยแหละ"} onClick={onClick} />
-              <TextButton text={"ก็สนุกดีนะ ได้เจออะไรใหม่ๆเยอะเลย"} onClick={onClick} />
-              <TextButton text={"เฉยๆนะ ไม่ค่อยมีอะไรน่าตืื่นเต้นเลย"} onClick={onClick} />
-              <TextButton text={"เหนื่อยอะ แต่ก็ผ่านมาได้"} onClick={onClick} />
-              <TextButton text={"หนักหน่วงมาก อยากให้ผ่านปีนี้ไปไว ๆ จัง"} onClick={onClick} />
-            </div>
-
-          )
-      }
+function ChoiceBox2({ text, onClick }) {
+  return (
+    <div className="RatingBox-4">
+      <div className='RatingText'>
+        {text.split(",").map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </div>
+      <div className='buttonList-2'>
+        <TextButton2 text={"เคยสิ !"} onClick={onClick} />
+        <TextButton2 text={"บางทีก็มีแว่บเข้ามาบ้างนะ"} onClick={onClick} />
+        <TextButton2 text={"อดีตมันผ่านไปแล้ว"} onClick={onClick} />
+      </div>
     </div>
   )
 }
@@ -102,80 +557,182 @@ function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
   const [secondPageText, setSecondPageText] = useState("คุณลืมตาขึ้นมาแล้วพบกับ, สมุดเล่มหนึ่งที่วางอยู่บนโต๊ะ");
+  const [zoomLevel, setZoomLevel] = useState(0)
+  const [zoom, setZoom] = useState(false)
+  const [showComponent, setShowComponent] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const [inputs, setInputs] = useState(["", "", ""])
+  const [answer, setAnswer] = useState("")
 
-  const colors = ['#4335A7', '#80C4E9', '#FFF6E9', '#FF7F3E'];
+  const backgroundImages = [
+    backgroundImage1,
+    backgroundImage2,
+    backgroundImage3,
+    backgroundImage4,
+    backgroundImage5,
+    backgroundImage6,
+    backgroundImage7,
+    backgroundImage8,
+    backgroundImage9
+  ];
+
+  const backgroundLevel = [
+    "cover",
+    "150%",
+    "230%"
+  ]
+
+  const backgroundX = [
+    "cover",
+    "50%",
+    "60%"
+  ]
+  const backgroundY = [
+    "cover",
+    "90%",
+    "100%"
+  ]
+
+  const currentBackgroundImage = backgroundImages[bgIndex];
+
+
   const textList = [
     "ปีนี้คุณรู้สึกเป็นไงบ้าง...",
     "ถ้ามีคะแนนเต็ม 10,ปีนี้คุณให้คะแนนตัวเองเท่าไร เพราะอะไร?",
     "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย...",
-    "แล้วเรื่องที่ภูมิใจล่ะ?"
-  ]
+    "แล้วเรื่องที่ภูมิใจล่ะ?",
+    "",
+    "ถ้าย้อนเวลากลับไปได้,คุณอยากกลับไปแก้ไขเรื่องราวในอดีตมั้ย?",
+    ""
+  ];
 
-  // Handlers
-  const handleNextButton = () => setBgIndex((prev) => (prev + 1) % colors.length);
+  const goToPage = (page) => {
+    if (isFading) return; // Prevent starting a new transition during an ongoing one
+    setIsFading(true);
+    setTimeout(() => {
+      setBgIndex(page);
+      setIsFading(false);
+      setPageIndex(0)
+      setZoomLevel(0)
+      setZoom(false)
+    }, 2000); // Match the transition duration in CSS
+  };
 
-  const handleFirstPageClick = () => setPageIndex(1);
+
+  const handleFirstPageClick = () => {
+    setPageIndex((prev) => (prev + 1))
+    if (pageIndex === 2) {
+      console.log("end bg 1")
+      goToPage(1)
+    }
+  };
 
   const handleSecondPageClick = () => {
-    setPageIndex((prev) => (prev + 1));
+    setPageIndex((prev) => prev + 1);
     setSecondPageText("คุณเดินเข้าไปใกล้ ใกล้ ...");
-
+    if (pageIndex === 1) {
+      setZoom(true)
+    }
     if (pageIndex === 3) {
-      handleNextButton();
-      setPageIndex(0);
+      goToPage(2)
     }
   };
 
   const handleThirdPageClick = () => {
-    console.log("click")
-    setPageIndex((prev) => (prev + 1));
+    if (pageIndex === 10) {
+      console.log("end bg 2")
+      goToPage(4)
+    }
+    setPageIndex((prev) => prev + 1);
+  };
+
+  const handleForthPageClick = () => {
+    setPageIndex((prev) => prev + 1);
+    if (pageIndex === 6) {
+      setBgIndex(6)
+      setPageIndex(0)
+    }
+  }
+
+  const handleFifthPageClick = () => {
+    if (pageIndex === 2) {
+      goToPage(7)
+      setPageIndex(0)
+    } else {
+      setPageIndex((prev) => prev + 1);
+    }
+
+  }
+
+  const handleSixthPageClick = () => {
+    setPageIndex((prev) => prev + 1);
+    if (pageIndex === 2) {
+      goToPage(8)
+      setPageIndex(0)
+    }
+  }
+
+  const handleSeventhPageClick = () => {
+    setPageIndex((prev) => prev + 1);
+  }
+
+  const handleAnimationEnd = () => {
+    setShowComponent(true)
   }
 
   // Effects
   useEffect(() => {
-    console.log("Current Background Index:", bgIndex);
     console.log("Current Page Index:", pageIndex);
-  }, [bgIndex, pageIndex]);
+    console.log("current show component", showComponent);
+    console.log("current BG Index", bgIndex);
+    console.log("current zoom", zoom);
 
-  // JSX
+  }, [pageIndex, bgIndex, zoom, showComponent]);
+
   return (
-    <div className="App" style={{ backgroundColor: colors[bgIndex] }}>
-      {bgIndex === 0 && (
-        <>
-          {pageIndex === 0 ? (
-            <FirstPage
-              text="นี่ก็มาถึงเดือนสุดท้ายของปีแล้วนะ"
-              onClick={handleFirstPageClick}
-            />
-          ) : (
-            <div className="Main-box">
-              <div className="background-color">สวัสดี คุณชื่ออะไรนะ...?</div>
-              <input
-                type="text"
-                className="Username-input"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="อยากให้เราเรียกคุณว่าอะไร..."
-              />
-             <NextButton handleNextButton={handleNextButton}/>
-            </div>
-          )}
-        </>
-      )}
-      {bgIndex === 1 && (
-        <SecondPage text={secondPageText} pageIndex={pageIndex} onClick={handleSecondPageClick} />
-      )}
-      {bgIndex === 2 && (
-        <>
-          {[0,4].includes(pageIndex) ? (
-            <ThirdPage username={userName} pageIndex={pageIndex} onClick={() => setPageIndex(1)} />
-          ) : (
-            <>
-            <RatingBox text={textList[pageIndex - 1]} pageIndex={pageIndex}  onClick={handleThirdPageClick} />
-          </>
-          )}
-        </>
-      )}
+    <div className={`overlay ${isFading ? "fade-out" : "fade-in"}`}>
+      <div
+        className={`App ${zoom ? "zoom-in" : null}`}
+        style={{
+          backgroundImage: `url(${currentBackgroundImage})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'
+        }}
+        onAnimationEnd={handleAnimationEnd}
+      >
+        {(bgIndex === 0) && (
+          <FirstPage pageIndex={pageIndex} onClick={handleFirstPageClick} setUserName={setUserName} />
+        )}
+
+        {bgIndex === 1 && (
+          <SecondPage text={secondPageText} pageIndex={pageIndex} onClick={handleSecondPageClick} showComponent={showComponent} setShowComponent={setShowComponent} />
+        )}
+
+        {[2, 3].includes(bgIndex) && (
+          < ThirdPage pageIndex={pageIndex} onClick={handleThirdPageClick} userName={userName} setPageIndex={setPageIndex} setBgIndex={setBgIndex} />
+        )}
+        {
+          [4, 5].includes(bgIndex) && (
+            <ForthPage username={userName} pageIndex={pageIndex} onClick={handleForthPageClick} setPageIndex={setPageIndex} setBgIndex={setBgIndex} inputs={inputs} setInputs={setInputs} setAnswer={setAnswer} />
+          )
+        }
+        {
+          bgIndex === 6 && (
+            <FifthPage username={userName} pageIndex={pageIndex} onClick={handleFifthPageClick} setPageIndex={setPageIndex} />
+          )
+        }
+        {
+          bgIndex === 7 && (
+            <SixthPage setPageIndex={setPageIndex} pageIndex={pageIndex} onClick={handleSixthPageClick} />
+          )
+        }
+        {
+          bgIndex === 8 && (
+            <SeventhPage userName={userName} pageIndex={pageIndex} onClick={handleSeventhPageClick} setPageIndex={setPageIndex} inputs={inputs} answer={answer} />
+          )
+        }
+      </div>
     </div>
   );
 }

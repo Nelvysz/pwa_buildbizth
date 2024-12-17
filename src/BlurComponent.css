@@ -1,0 +1,24 @@
+/* Container styling */
+.backdrop-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('./background/bg1.jpg') no-repeat center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Content styling */
+  .backdrop-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #333;
+  }
+  
