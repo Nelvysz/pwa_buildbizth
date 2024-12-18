@@ -556,7 +556,6 @@ function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
   const [secondPageText, setSecondPageText] = useState("คุณลืมตาขึ้นมาแล้วพบกับ, สมุดเล่มหนึ่งที่วางอยู่บนโต๊ะ");
-  const [setZoomLevel] = useState(0)
   const [zoom, setZoom] = useState(false)
   const [showComponent, setShowComponent] = useState(false);
   const [isFading, setIsFading] = useState(false);
@@ -583,7 +582,6 @@ function App() {
       setBgIndex(page);
       setIsFading(false);
       setPageIndex(0)
-      setZoomLevel(0)
       setZoom(false)
     }, 2000); // Match the transition duration in CSS
   };

@@ -496,6 +496,7 @@
   align-items: center;
   padding: 20%;
   flex-direction: column;
+  color: black;
 }
 
 .messagebox-2 {
