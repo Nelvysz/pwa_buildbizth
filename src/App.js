@@ -10,7 +10,6 @@ import backgroundImage6 from './background/bg6.svg'
 import backgroundImage7 from './background/bg7.svg'
 import backgroundImage8 from './background/bg8.svg'
 import backgroundImage9 from './background/bg9.svg'
-import floating1 from './background/floating1.svg'
 import finger from './background/finger2.svg'
 import saveIcon from './icon/save.svg'
 import shareIcon from './icon/share.svg'
@@ -557,7 +556,7 @@ function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
   const [secondPageText, setSecondPageText] = useState("คุณลืมตาขึ้นมาแล้วพบกับ, สมุดเล่มหนึ่งที่วางอยู่บนโต๊ะ");
-  const [zoomLevel, setZoomLevel] = useState(0)
+  const [setZoomLevel] = useState(0)
   const [zoom, setZoom] = useState(false)
   const [showComponent, setShowComponent] = useState(false);
   const [isFading, setIsFading] = useState(false);
@@ -575,36 +574,7 @@ function App() {
     backgroundImage8,
     backgroundImage9
   ];
-
-  const backgroundLevel = [
-    "cover",
-    "150%",
-    "230%"
-  ]
-
-  const backgroundX = [
-    "cover",
-    "50%",
-    "60%"
-  ]
-  const backgroundY = [
-    "cover",
-    "90%",
-    "100%"
-  ]
-
   const currentBackgroundImage = backgroundImages[bgIndex];
-
-
-  const textList = [
-    "ปีนี้คุณรู้สึกเป็นไงบ้าง...",
-    "ถ้ามีคะแนนเต็ม 10,ปีนี้คุณให้คะแนนตัวเองเท่าไร เพราะอะไร?",
-    "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย...",
-    "แล้วเรื่องที่ภูมิใจล่ะ?",
-    "",
-    "ถ้าย้อนเวลากลับไปได้,คุณอยากกลับไปแก้ไขเรื่องราวในอดีตมั้ย?",
-    ""
-  ];
 
   const goToPage = (page) => {
     if (isFading) return; // Prevent starting a new transition during an ongoing one
