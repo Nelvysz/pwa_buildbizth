@@ -479,6 +479,24 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
 
 function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answer }) {
   const captureRef = useRef();
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [url, setUrl] = useState('');
+  const [file, setFile] = useState(null);
+
+  const handleShare = async () => {
+    const data = { title, text, url };
+
+    if (file) {
+      data.files = [file];
+    }
+
+    try {
+      await navigator.share(data);
+    } catch (e) {
+      console.log('Share error:', e);
+    }
+  };
 
   const handleScreenshot = () => {
     html2canvas(captureRef.current).then((canvas) => {
@@ -523,7 +541,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
           <img src={saveIcon} alt="save icon" className='saveIcon' />
           บันทึกรูปภาพ
         </button>
-        <button className='ShareSite'>
+        <button className='ShareSite' onClick={handleShare}>
           <img src={shareIcon} alt="save icon" className='saveIcon' />
           ส่งเว็ปนี้ให้เพื่อนคุณเล่น
         </button>
