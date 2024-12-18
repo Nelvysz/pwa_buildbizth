@@ -533,7 +533,7 @@ function ChoiceBox1({ text, onClick }) {
     <div className="RatingBox">
       <div className='RatingText'>
         {text.split(",").map((line, index) => (
-          <div key={index}>{line}</div>
+          <span key={index}>{line}</span>
         ))}
       </div>
       <div className='buttonList'>
