@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./App.css"
+import 'normalize.css';
 import "./sliderWithEmoji.css"
 import backgroundImage1 from './background/bg1.svg';
 import backgroundImage2 from './background/bg2.svg'
