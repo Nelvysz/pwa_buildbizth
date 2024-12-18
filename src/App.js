@@ -432,10 +432,12 @@ function ForthPage({ username, pageIndex, inputs, setInputs, onClick, setPageInd
 }
 
 function FifthPage({ username, pageIndex, setPageIndex, onClick }) {
+  const [repeat, setRepeat] = useState(false)
   useEffect(() => {
-    if (pageIndex === 0) {
+    if (pageIndex === 0 && !repeat) {
       const timer = setTimeout(() => {
         setPageIndex((prev) => prev + 1);
+        setRepeat(true)
       }, 1000); // Delay of 1 second (1000 ms)
       return () => clearTimeout(timer); // Cleanup the timeout
     }
