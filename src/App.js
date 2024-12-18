@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import "./App.css"
 import 'normalize.css';
 import "./sliderWithEmoji.css"
@@ -14,6 +14,7 @@ import backgroundImage9 from './background/bg9.svg'
 import finger from './background/finger2.svg'
 import saveIcon from './icon/save.svg'
 import shareIcon from './icon/share.svg'
+import html2canvas from "html2canvas";
 
 
 const TopPageMessage = ({ text, onClick }) => {
@@ -471,6 +472,17 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
 }
 
 function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answer }) {
+  const captureRef = useRef();
+
+  const handleScreenshot = () => {
+    html2canvas(captureRef.current).then((canvas) => {
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "screenshot.png";
+      link.click();
+    });
+  };
   if ([0].includes(pageIndex)) {
     return (<AnimateMessage2 setPageIndex={setPageIndex} pageIndex={pageIndex} />);
   }
@@ -501,7 +513,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
           </div>
         </div>
         <div></div>
-        <button className='savePicture'>
+        <button className='savePicture' onClick={handleScreenshot}>
           <img src={saveIcon} alt="save icon" className='saveIcon' />
           บันทึกรูปภาพ
         </button>
