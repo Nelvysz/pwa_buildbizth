@@ -10,20 +10,16 @@
     margin-bottom: 30%;
   }
   
-  h3 {
-    font-family: Arial, sans-serif;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: medium;
-  }
-  
   .score-display {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 48px;
     font-weight: bold;
+    align-items: center;
+    justify-content: space-between;
     color: #6c63ff;
+    width: 30%;
   }
   
   .emoji {
@@ -32,6 +28,7 @@
   }
 
   .slider{
+    margin-top: 5%;
     -webkit-appearance: none;
     appearance: none;
     width: 85%;
@@ -58,6 +55,7 @@
   
   .reason-box {
     display: flex;
+    font-family: "Noto Sans Thai";
     width: 80%;
     height: 25%;
     margin-top: 7%;
@@ -69,6 +67,7 @@
     outline: none;
     box-shadow: 10% black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
   }
 
   .reason-box:focus{
@@ -77,6 +76,7 @@
 
   .reason-box-2 {
     display: flex;
+    font-family: "Noto Sans Thai";
     width: 80%;
     height: 100%;
     border: none;
@@ -88,6 +88,7 @@
     outline: none;
     box-shadow: 10% black;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 5%;
   }
 
   .reason-box-2:focus{

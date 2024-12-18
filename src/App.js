@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./App.css"
 import 'normalize.css';
 import "./sliderWithEmoji.css"
@@ -23,7 +23,7 @@ const TopPageMessage = ({ text, onClick }) => {
       <div className="FirstBox" >
         <div className='firstpagemessage'>
           {text.split(",").map((line, index) => (
-            <div key={index} className='sec'>{line}</div>
+            <div key={index} >{line}</div>
           ))}
         </div>
         <img src={finger} alt="tap finger print" className='fingerPrint' />
@@ -55,7 +55,7 @@ const AnimateMessage = ({ setPageIndex, setBgIndex }) => {
   const [currentText, setCurrentText] = useState(0); // Track which text to show
   const textList = [
     "ภาพเหตุการณ์ในปีนี้ทั้งหมด",
-    "ค่อยๆฉายขึ้นมในหัวของคุณ,ราวกับละครเรื่องหนึ่ง",
+    "ค่อยๆฉายขึ้นมาในหัวของคุณ,ราวกับละครเรื่องหนึ่ง",
     ""
   ];
 
@@ -171,8 +171,8 @@ const RangeSlider = ({ }) => {
     setAnswer(event.target.value); // Update state when the textarea changes
   };
   return (
-    <div className="RatingBox-3">
-      <h3>ปีนี้คุณให้คะแนนตัวเองเท่าไหร่?</h3>
+    <div className="RatingBox-slider">
+      <div className='headtext'>ปีนี้คุณให้คะแนนตัวเองเท่าไหร่?</div>
       <div className="score-display">
         <span className="score">{score}</span>
         <span className="emoji">{emojis[score]}</span>
@@ -208,7 +208,7 @@ const ThreeQuestionBox = ({ inputs, setInputs }) => {
 
   return (
     <div className="RatingBox-5">
-      <h3>มาลองตั้งเป้าหมายสำคัญในชีวิตสัก 3 ข้อกัน</h3>
+      <div className='headtext'>มาลองตั้งเป้าหมายสำคัญในชีวิตสัก 3 ข้อกัน</div>
       <div className='questionList'>
         {inputs.map((input, index) => (
           <input
@@ -232,9 +232,13 @@ const QuestionBox = ({ text }) => {
   };
   return (
     <div className='RatingBox-3'>
-      <h3>{text.split(",").map((line, index) => (
-        <div key={index} className='sec'>{line}</div>
-      ))}</h3>
+      <div className='headtext'>
+        {text.split(",").map((line, index) => (
+          <span key={index} className="sec">
+            {line}
+          </span>
+        ))}
+      </div>
       <textarea
         value={answer}
         onChange={handleChange}
@@ -251,9 +255,9 @@ const QuestionBox2 = ({ text, answer, setAnswer }) => {
   };
   return (
     <div className='RatingBox-3'>
-      <h3>{text.split(",").map((line, index) => (
+      <div className='headtext'>{text.split(",").map((line, index) => (
         <div key={index} className='sec'>{line}</div>
-      ))}</h3>
+      ))}</div>
       <textarea
         value={answer}
         onChange={handleChange}
@@ -328,7 +332,7 @@ function SecondPage({ text, pageIndex, showComponent, setShowComponent, onClick 
 };
 
 function ThirdPage({ text, pageIndex, userName, onClick, setPageIndex, setBgIndex, setAnsetwer }) {
-  const textList = ["", "ปีนี้คุณรู้สึกยังไงบ้าง...", "ปีนี้คุณให้คะแนนตัวเองเท่าไร?", "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย?", "แล้วเรื่องที่ภูมิใจล่ะ?", "ว้าว ดูเหมือนว่าคุณ " + userName + ",ผ่านอะไรมาเยอะเหมือนกันนะ", "คุณเก่งมากๆเลยแหละ,เราภูมิใจในตัวคุณที่สุดเลย", "เคยคิดอยากย้อนเวลากลับไปมั้ย?", "", "เติบโตและเรียนรู้ไปด้วยกันนะ,อะไรที่ผ่านมาแล้วก็ให้ผ่านไป", "อย่าเก็ยอดีต มาฉุดรั้งตัวเราในอนาคตเลยนะ"]
+  const textList = ["", "ปีนี้คุณรู้สึกยังไงบ้าง...", "ปีนี้คุณให้คะแนนตัวเองเท่าไร?", "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย?", "แล้วเรื่องที่ภูมิใจล่ะ?", "ว้าว ดูเหมือนว่าคุณ " + userName + ",ผ่านอะไรมาเยอะเหมือนกันนะ", "คุณเก่งมากๆเลยแหละ,เราภูมิใจในตัวคุณที่สุดเลย", "เคยคิดอยากย้อนเวลากลับไปมั้ย?", "", "เติบโตและเรียนรู้ไปด้วยกันนะ,อะไรที่ผ่านมาแล้วก็ให้ผ่านไป", "อย่าเก็บอดีต มาฉุดรั้งตัวเราในอนาคตเลยนะ"]
   if ([0].includes(pageIndex)) {
     return (<AnimateMessage onClick={onClick} setPageIndex={setPageIndex} setBgIndex={setBgIndex} />)
   }
@@ -398,9 +402,9 @@ function ForthPage({ username, pageIndex, inputs, setInputs, onClick, setPageInd
     "",
     "การตั้งเป้าหมายในชีวิตถือเป็นสิ่งที่ช่วยทำให้คุณมี,ทิศทางและความหมายในการดำเนินชีวิต",
     "",
-    "มันยอดเยี่ยมมากเลยนะ คุณว่าไหม,แต่อย่่าลืมวางแผนด้วยล่ะ,แผนที่จะพาคุณไปยังเป้าหมายที่ตั้งไว้",
+    "มันดูยอดเยี่ยมมากเลยนะ คุณว่าไหม,แต่อย่าลืมวางแผนด้วยล่ะ,แผนที่จะพาคุณไปยังเป้าหมายที่ตั้งไว้",
     "งั้นเรามาวางแผน เพื่อให้ไปถึงเป้าหมาย,ที่ตั้งไว้กันเถอะ",
-    "ไม่ว่าระหว่างทางจะเจออะไร,จงเชื่อมั่นและมีความหวังเสทอ",
+    "ไม่ว่าระหว่างทางจะเจออะไร,จงเชื่อมั่นและมีความหวังเสมอ",
     "สุดท้ายนี้อยากบอกอะไรกับตัวเอง,ทั้งในปีนี้และปีถัดไปบ้าง..."
   ];
 
@@ -445,7 +449,7 @@ function FifthPage({ username, pageIndex, setPageIndex, onClick }) {
   const textList = [
     "",
     "เอาล่ะ...,เราได้บันทึกเรื่องราวของคุณ" + username + ",ลงไดอารี่เล่มนี้เรียบร้อยแล้ว",
-    "ไม่ว่าที่ผ่านทาจะยากแค่ไหน,คุณเก่งมากที่ผ่านมันมาได้"
+    "ไม่ว่าที่ผ่านมาจะยากแค่ไหน,คุณเก่งมากที่ผ่านมันมาได้...."
 
   ];
   if ([1, 2].includes(pageIndex)) {
