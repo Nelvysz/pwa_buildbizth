@@ -52,7 +52,7 @@ const TopPageMessage2 = ({ text, onClick, showFinger = true }) => {
 const TopPageMessage3 = ({ text, onClick }) => {
   return (
     <button className="First-page" onClick={onClick}>
-      <div className="FirstBox" >
+      <div className="Box-2" >
         <div className='message-3'>
           {text.split(",").map((line, index) => (
             <div key={index} >{line}</div>
@@ -481,7 +481,7 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
   const textList = [
     "",
     "จงภูมิใจในตัวเอง,ไม่ว่าตอนนี้คุณกำลังอยู่ในจุดไหน,ถ้าคุณมุ่งมั่นตั้งใจ,คุณก็ไปถึงเป้าหมายนั้นได้นะ",
-    "หวังว่าปีหน้า เราจะได้รับข่าวดีจากคุณนะ..."
+    "หวังว่าปีหน้า,เราจะได้รับข่าวดีจากคุณนะ..."
 
   ];
   if ([1, 2].includes(pageIndex)) {
@@ -490,7 +490,8 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
 }
 
 function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answer }) {
-  const captureRef = useRef();
+  const componentRef = useRef(null);
+
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [url, setUrl] = useState('');
@@ -510,15 +511,41 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
     }
   };
 
-  const handleScreenshot = () => {
-    html2canvas(captureRef.current).then((canvas) => {
-      const image = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
+  const savePage = async () => {
+    try {
+      // Hide unwanted elements
+      const savebuttons = document.querySelectorAll('.savePicture');
+      const sharebutton = document.querySelectorAll('.ShareSite');
+      savebuttons.forEach((button) => (button.style.visibility = 'hidden'));
+      sharebutton.forEach((button) => (button.style.visibility = 'hidden'));
+
+      // Capture the page
+      const canvas = await html2canvas(document.body, {
+        scrollX: 0,
+        scrollY: -window.scrollY, // To capture the full page
+        windowWidth: document.documentElement.scrollWidth,
+        windowHeight: document.documentElement.scrollHeight,
+      });
+
+      // Restore hidden elements
+      savebuttons.forEach((button) => (button.style.visibility = 'visible'));
+      sharebutton.forEach((button) => (button.style.visibility = 'visible'));
+
+      // Convert the canvas to an image URL
+      const image = canvas.toDataURL('image/png');
+
+      // Trigger download
+      const link = document.createElement('a');
       link.href = image;
-      link.download = "screenshot.png";
+      link.download = 'page-screenshot.png';
+      document.body.appendChild(link);
       link.click();
-    });
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error saving page as image:', error);
+    }
   };
+
   if ([0].includes(pageIndex)) {
     return (<AnimateMessage2 setPageIndex={setPageIndex} pageIndex={pageIndex} />);
   }
@@ -526,7 +553,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
     return (
       <div className='FinalPage'>
         ของที่ระลึกจากเรา BuildBiz
-        <div className='GiftBox'>
+        <div className='GiftBox' ref={componentRef}>
           <div style={{ "paddingTop": "3%" }}>
             "{userName}"
           </div>
@@ -549,7 +576,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
           </div>
         </div>
         <div></div>
-        <button className='savePicture' onClick={handleScreenshot}>
+        <button className='savePicture' onClick={savePage}>
           <img src={saveIcon} alt="save icon" className='saveIcon' />
           บันทึกรูปภาพ
         </button>
@@ -573,7 +600,7 @@ function ChoiceBox1({ text, onClick }) {
       <div className='buttonList'>
         <TextButton text={"สนุกกว่าปีไหนๆเลยแหละ"} onClick={onClick} />
         <TextButton text={"ก็สนุกดีนะ ได้เจออะไรใหม่ๆเยอะเลย"} onClick={onClick} />
-        <TextButton text={"เฉยๆนะ ไม่ค่อยมีอะไรน่าตืื่นเต้นเลย"} onClick={onClick} />
+        <TextButton text={"เฉยๆนะ ไม่ค่อยมีอะไรน่าตื่นเต้นเลย"} onClick={onClick} />
         <TextButton text={"เหนื่อยอะ แต่ก็ผ่านมาได้"} onClick={onClick} />
         <TextButton text={"หนักหน่วงมาก อยากให้ผ่านปีนี้ไปไว ๆ จัง"} onClick={onClick} />
       </div>
