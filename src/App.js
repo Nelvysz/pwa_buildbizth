@@ -39,14 +39,26 @@ const TopPageMessage2 = ({ text, onClick, showFinger = true }) => {
           <>
             <div>อดีตคือบทเรียนนะ แต่ปัจจุบันคือ</div>
             <div>
-              <span>"</span>
-              <span style={{ color: '#9881EA' }}>ของขวัญ</span>
-              <span>"</span>
+              <span style={{ color: '#9881EA' }}>"ของขวัญ"</span>
             </div>
             <div>ที่เราสร้างเองได้เสมอ...</div>
           </>
         </div>
         {showFinger === true ? (<img src={finger} alt="tap finger print" className='fingerPrint' />) : null}
+      </div>
+    </button>)
+}
+
+const TopPageMessage3 = ({ text, onClick }) => {
+  return (
+    <button className="First-page" onClick={onClick}>
+      <div className="FirstBox" >
+        <div className='message-3'>
+          {text.split(",").map((line, index) => (
+            <div key={index} >{line}</div>
+          ))}
+        </div>
+        <img src={finger} alt="tap finger print" className='fingerPrint' />
       </div>
     </button>)
 }
@@ -112,7 +124,7 @@ const AnimateMessage2 = ({ pageIndex, setPageIndex }) => {
   return (
     <div className="First-page">
       <div className="AnimateBox">
-        <div className="firstpagemessage">
+        <div className="finalpagemessage">
           {textList[currentText].split(",").map((line, index) => (
             <div key={index} >
               {line}
@@ -271,7 +283,7 @@ const QuestionBox2 = ({ text, answer, setAnswer }) => {
 function FirstPage({ setUserName, pageIndex, onClick }) {
   const [user, setUser] = useState("")
   if (pageIndex === 0) {
-    return (<TopPageMessage text={"นี่ก็ถึงเดือนสุดท้ายของปีแล้วนะ"} onClick={onClick} />)
+    return (<TopPageMessage text={"นี่ก็มาถึงเดือนสุดท้ายของปีแล้วนะ"} onClick={onClick} />)
   }
   if (pageIndex === 1) {
     return (
@@ -317,7 +329,7 @@ function SecondPage({ text, pageIndex, showComponent, setShowComponent, onClick 
             <div className='firstpagemessage'>
               <div style={{ display: "flex" }}>
                 <div>สมุดเล่มนั้นก็คือ </div>
-                <div style={{ color: "#6B56BF" }}>"ไดอารี่"</div>
+                <div style={{ color: "#6B56BF" }}> "ไดอารี่"</div>
               </div>
               <div>ที่จะพาคุณทบทวนเรื่องราวที่ผ่านมาในปีนี้</div>
             </div>
@@ -473,7 +485,7 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
 
   ];
   if ([1, 2].includes(pageIndex)) {
-    return (<TopPageMessage text={textList[pageIndex]} onClick={onClick} />);
+    return (<TopPageMessage3 text={textList[pageIndex]} onClick={onClick} />);
   }
 }
 
@@ -543,7 +555,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
         </button>
         <button className='ShareSite' onClick={handleShare}>
           <img src={shareIcon} alt="save icon" className='saveIcon' />
-          ส่งเว็ปนี้ให้เพื่อนคุณเล่น
+          ส่งเว็บนี้ให้เพื่อนคุณเล่น
         </button>
       </div>
     )
@@ -731,7 +743,7 @@ function App() {
         }
         {
           bgIndex === 7 && (
-            <SixthPage setPageIndex={setPageIndex} pageIndex={pageIndex} onClick={handleSixthPageClick} />
+              <SixthPage setPageIndex={setPageIndex} pageIndex={pageIndex} onClick={handleSixthPageClick} />
           )
         }
         {
