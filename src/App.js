@@ -317,7 +317,7 @@ function SecondPage({ text, pageIndex, showComponent, setShowComponent, onClick 
             <div className='firstpagemessage'>
               <div style={{ display: "flex" }}>
                 <div>สมุดเล่มนั้นก็คือ </div>
-                <div style={{ color: "#9881EA" }}>"ไดอารี่"</div>
+                <div style={{ color: "#6B56BF" }}>"ไดอารี่"</div>
               </div>
               <div>ที่จะพาคุณทบทวนเรื่องราวที่ผ่านมาในปีนี้</div>
             </div>
@@ -702,7 +702,7 @@ function App() {
           backgroundImage: `url(${currentBackgroundImage})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
         }}
         onAnimationEnd={handleAnimationEnd}
       >
@@ -711,7 +711,9 @@ function App() {
         )}
 
         {bgIndex === 1 && (
-          <SecondPage text={secondPageText} pageIndex={pageIndex} onClick={handleSecondPageClick} showComponent={showComponent} setShowComponent={setShowComponent} />
+          <div className='filter'>
+            <SecondPage text={secondPageText} pageIndex={pageIndex} onClick={handleSecondPageClick} showComponent={showComponent} setShowComponent={setShowComponent} />
+          </div>
         )}
 
         {[2, 3].includes(bgIndex) && (
