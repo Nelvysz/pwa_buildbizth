@@ -48,8 +48,6 @@
 
   .slider::-webkit-slider-thumb:active {
     appearance: none;
-    background: black;
-    background: url('./background/finger.png') no-repeat center;
     background-size: 100%;
   }
   

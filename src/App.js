@@ -11,11 +11,32 @@ import backgroundImage6 from './background/bg6.svg'
 import backgroundImage7 from './background/bg7.svg'
 import backgroundImage8 from './background/bg8.svg'
 import backgroundImage9 from './background/bg9.svg'
+import emoji1 from "./emoji/pouting-face.svg"
+import emoji2 from "./emoji/unamused-face.svg"
+import emoji3 from "./emoji/crying-face.svg"
+import emoji4 from "./emoji/confused-face.svg"
+import emoji5 from "./emoji/expressionless-face.svg"
+import emoji6 from "./emoji/kissing-face.svg"
+import emoji7 from "./emoji/happy-face.svg"
+import emoji8 from "./emoji/beaming-face-with-smiling-eyes.svg"
+import emoji9 from "./emoji/smiling-face-with-smiling-eyes.svg"
+import emoji10 from "./emoji/smiling-face-with-heart-eyes.svg"
 import finger from './background/finger2.svg'
 import saveIcon from './icon/save.svg'
 import shareIcon from './icon/share.svg'
 import html2canvas from "html2canvas";
+import { firestore } from "./firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
+const addUser = async (userData) => {
+  try {
+    // Add a new document with an auto-generated ID
+    await addDoc(collection(firestore, "users"), userData);
+    console.log("Document successfully written!");
+  } catch (error) {
+    console.error("Error writing document: ", error);
+  }
+};
 
 const TopPageMessage = ({ text, onClick }) => {
   return (
@@ -176,6 +197,7 @@ const RangeSlider = ({ }) => {
   const [answer, setAnswer] = useState("")
   const [score, setScore] = useState(5);
   const emojis = ["😡", "😠", "😕", "😐", "🙂", "😊", "😀", "😄", "😆", "😁", "🤩"];
+  const emojis_extra = [emoji1,emoji2,emoji3,emoji4,emoji5,emoji6,emoji7,emoji8,emoji9,emoji10];
   const handleSliderChange = (event) => {
     setScore(Number(event.target.value));
   };
@@ -578,6 +600,12 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
     return (<AnimateMessage2 setPageIndex={setPageIndex} pageIndex={pageIndex} />);
   }
   if ([1].includes(pageIndex)) {
+    const newUser = {
+      username : userName,
+      goals : inputs
+    }
+    addUser(newUser);
+
     return (
       <div className='FinalPage'>
         ของที่ระลึกจากเรา BuildBiz

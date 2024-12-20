@@ -872,6 +872,13 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.emoji{
+  margin-top: 5%;
+  display: flex;
+  height: 90%;
+  width: 90%;
+}
+
 @media screen and (max-width : 400px) {
   .FinalPage {
     height: 85%;
