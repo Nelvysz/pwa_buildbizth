@@ -284,6 +284,7 @@
   justify-items: center;
   align-items: center;
   font-weight: bold;
+  color: #3b3b3b;
 }
 
 .choiceButton {
@@ -451,7 +452,7 @@
   align-items: center;
   justify-content: space-between;
   height: 90%;
-  color: black;
+  color: #3b3b3b;
 }
 
 .Box-2 {
@@ -461,7 +462,7 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  color: black;
+  color: #3b3b3b;
 }
 
 .AnimateBox {
@@ -522,9 +523,10 @@
   flex-direction: column;
   justify-content: space-around;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
+  /* backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); */
+  /* visibility: visible; */
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .firstpagemessage {
@@ -541,7 +543,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
+  color: #3b3b3b;
   white-space: pre-wrap;
   font-weight: bold;
   padding: 7%;
@@ -562,7 +564,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
+  color: #3b3b3b;
   white-space: pre-wrap;
   font-weight: bold;
 }
@@ -582,7 +584,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
+  color: #3b3b3b;
   white-space: pre-wrap;
   font-weight: bold;
   padding: 5%;
@@ -605,6 +607,7 @@
   align-items: center;
   padding: 9%;
   font-weight: bold;
+  color: #3b3b3b;
 }
 
 /* @media only screen and (max-width: 600px) {
@@ -643,6 +646,7 @@
   background-color: #D6CCF6;
   border-radius: 20px;
   flex-direction: column;
+  color: #3b3b3b;
 }
 
 .FinalQoute {
@@ -858,6 +862,7 @@
   font-family: "Noto Sans Thai";
   line-height: 1.5;
   font-weight: bold;
+  color: #3b3b3b;
 }
 
 .filter {
@@ -879,8 +884,7 @@
   }
 
   .GiftBox {
-    margin-top: 0%;
-    margin-bottom: -1%;
+    margin-bottom: -2%;
     font-size: 14px;
   }
 

@@ -280,6 +280,26 @@ const QuestionBox2 = ({ text, answer, setAnswer }) => {
   )
 }
 
+const QuestionBox3 = ({ text }) => {
+  const [answer,setAnswer] = useState("")
+  const handleChange = (event) => {
+    setAnswer(event.target.value); // Update state when the textarea changes
+  };
+  return (
+    <div className='RatingBox-3'>
+      <div className='headtext'>{text.split(",").map((line, index) => (
+        <div key={index} className='sec'>{line}</div>
+      ))}</div>
+      <textarea
+        value={answer}
+        onChange={handleChange}
+        placeholder="พิมพ์คำตอบของคุณที่นี่..."
+        className="reason-box-2"
+      ></textarea>
+    </div>
+  )
+}
+
 function FirstPage({ setUserName, pageIndex, onClick }) {
   const [user, setUser] = useState("")
   if (pageIndex === 0) {
@@ -436,10 +456,19 @@ function ForthPage({ username, pageIndex, inputs, setInputs, onClick, setPageInd
       </div>
     )
   }
-  if ([4, 6].includes(pageIndex)) {
+  if ([4].includes(pageIndex)) {
     return (
       <div className='questioncontainer'>
         <QuestionBox2 text={textList[pageIndex]} setAnswer={setAnswer} />
+        <NextButton handleNextButton={onClick} />
+      </div>
+    )
+  }
+
+  if ([6].includes(pageIndex)) {
+    return (
+      <div className='questioncontainer'>
+        <QuestionBox3 text={textList[pageIndex]}/>
         <NextButton handleNextButton={onClick} />
       </div>
     )
@@ -490,7 +519,6 @@ function SixthPage({ pageIndex, setPageIndex, onClick }) {
 }
 
 function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answer }) {
-  const componentRef = useRef(null);
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -553,7 +581,7 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
     return (
       <div className='FinalPage'>
         ของที่ระลึกจากเรา BuildBiz
-        <div className='GiftBox' ref={componentRef}>
+        <div className='GiftBox' >
           <div style={{ "paddingTop": "3%" }}>
             "{userName}"
           </div>
