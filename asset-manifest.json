@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pwa_buildbizth/static/css/main.f286b5d7.css",
-    "main.js": "/pwa_buildbizth/static/js/main.5f1498e3.js",
+    "main.css": "/pwa_buildbizth/static/css/main.ad44dd2a.css",
+    "main.js": "/pwa_buildbizth/static/js/main.fef8fb9c.js",
     "static/js/453.3655a8f1.chunk.js": "/pwa_buildbizth/static/js/453.3655a8f1.chunk.js",
     "static/media/bg6.svg": "/pwa_buildbizth/static/media/bg6.fe7e6f9b2083ae8c2c76a98a42fc191b.svg",
     "static/media/bg5.svg": "/pwa_buildbizth/static/media/bg5.1fb5ed5f6039c2e703b452d709205bcc.svg",
@@ -20,12 +20,12 @@
     "static/media/BGblur2.svg": "/pwa_buildbizth/static/media/BGblur2.5efb72bff0509b57685e.svg",
     "static/media/BGblur.svg": "/pwa_buildbizth/static/media/BGblur.83b2e100ecc3b2fdd89d.svg",
     "static/media/nextbutton.svg": "/pwa_buildbizth/static/media/nextbutton.ec839d67f027653ef16f.svg",
-    "main.f286b5d7.css.map": "/pwa_buildbizth/static/css/main.f286b5d7.css.map",
-    "main.5f1498e3.js.map": "/pwa_buildbizth/static/js/main.5f1498e3.js.map",
+    "main.ad44dd2a.css.map": "/pwa_buildbizth/static/css/main.ad44dd2a.css.map",
+    "main.fef8fb9c.js.map": "/pwa_buildbizth/static/js/main.fef8fb9c.js.map",
     "453.3655a8f1.chunk.js.map": "/pwa_buildbizth/static/js/453.3655a8f1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f286b5d7.css",
-    "static/js/main.5f1498e3.js"
+    "static/css/main.ad44dd2a.css",
+    "static/js/main.fef8fb9c.js"
   ]
 }
