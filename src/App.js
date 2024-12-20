@@ -160,7 +160,7 @@ const AnimateMessage2 = ({ pageIndex, setPageIndex }) => {
 const AnimateMessage3 = ({ setPageIndex, setBgIndex, userName }) => {
   const [currentText, setCurrentText] = useState(0); // Track which text to show
   const textList = [
-    "ไหนดูซิ คุณ" + userName + "วาดภาพตัวเองในอนาคต,เป็นอย่างไรบ้างนะ...?",
+    "ไหนดูซิ คุณ " + userName + " วาดภาพตัวเองในอนาคต,เป็นอย่างไรบ้างนะ...?",
     "",
     ""
   ];
@@ -197,7 +197,7 @@ const RangeSlider = ({ }) => {
   const [answer, setAnswer] = useState("")
   const [score, setScore] = useState(5);
   const emojis = ["😡", "😠", "😕", "😐", "🙂", "😊", "😀", "😄", "😆", "😁", "🤩"];
-  const emojis_extra = [emoji1,emoji2,emoji3,emoji4,emoji5,emoji6,emoji7,emoji8,emoji9,emoji10];
+  const emojis_extra = [emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9, emoji10];
   const handleSliderChange = (event) => {
     setScore(Number(event.target.value));
   };
@@ -259,10 +259,10 @@ const ThreeQuestionBox = ({ inputs, setInputs }) => {
   );
 };
 
-const QuestionBox = ({ text }) => {
-  const [answer, setAnswer] = useState("")
+const QuestionBox = ({ text, answer, setAnswer }) => {
+
   const handleChange = (event) => {
-    setAnswer(event.target.value); // Update state when the textarea changes
+    setAnswer(event.target.value);
   };
   return (
     <div className='RatingBox-3'>
@@ -303,7 +303,7 @@ const QuestionBox2 = ({ text, answer, setAnswer }) => {
 }
 
 const QuestionBox3 = ({ text }) => {
-  const [answer,setAnswer] = useState("")
+  const [answer, setAnswer] = useState("")
   const handleChange = (event) => {
     setAnswer(event.target.value); // Update state when the textarea changes
   };
@@ -387,6 +387,9 @@ function SecondPage({ text, pageIndex, showComponent, setShowComponent, onClick 
 
 function ThirdPage({ text, pageIndex, userName, onClick, setPageIndex, setBgIndex, setAnsetwer }) {
   const textList = ["", "ปีนี้คุณรู้สึกยังไงบ้าง...", "ปีนี้คุณให้คะแนนตัวเองเท่าไร?", "ปีนี้มีเรื่องที่ทำให้รู้สึกผิดหวังบ้างมั้ย?", "แล้วเรื่องที่ภูมิใจล่ะ?", "ว้าว ดูเหมือนว่าคุณ " + userName + ",ผ่านอะไรมาเยอะเหมือนกันนะ", "คุณเก่งมากๆเลยแหละ,เราภูมิใจในตัวคุณที่สุดเลย", "เคยคิดอยากย้อนเวลากลับไปมั้ย?", "", "เติบโตและเรียนรู้ไปด้วยกันนะ,อะไรที่ผ่านมาแล้วก็ให้ผ่านไป", "อย่าเก็บอดีต มาฉุดรั้งตัวเราในอนาคตเลยนะ"]
+  const [answerA, setAnswerA] = useState("")
+  const [answerB, setAnswerB] = useState("")
+
   if ([0].includes(pageIndex)) {
     return (<AnimateMessage onClick={onClick} setPageIndex={setPageIndex} setBgIndex={setBgIndex} />)
   }
@@ -408,7 +411,7 @@ function ThirdPage({ text, pageIndex, userName, onClick, setPageIndex, setBgInde
   if ([3].includes(pageIndex)) {
     return (
       <div className='questioncontainer'>
-        <QuestionBox text={textList[pageIndex]} />
+        <QuestionBox text={textList[pageIndex]} answer={answerA} setAnswer={setAnswerA} />
         <NextButton handleNextButton={onClick} />
       </div>
     )
@@ -416,7 +419,7 @@ function ThirdPage({ text, pageIndex, userName, onClick, setPageIndex, setBgInde
   if ([4].includes(pageIndex)) {
     return (
       <div className='questioncontainer'>
-        <QuestionBox text={textList[pageIndex]} />
+        <QuestionBox text={textList[pageIndex]} answer={answerB} setAnswer={setAnswerB} />
         <NextButton handleNextButton={onClick} />
       </div>
     )
@@ -490,7 +493,7 @@ function ForthPage({ username, pageIndex, inputs, setInputs, onClick, setPageInd
   if ([6].includes(pageIndex)) {
     return (
       <div className='questioncontainer'>
-        <QuestionBox3 text={textList[pageIndex]}/>
+        <QuestionBox3 text={textList[pageIndex]} />
         <NextButton handleNextButton={onClick} />
       </div>
     )
@@ -511,7 +514,7 @@ function FifthPage({ username, pageIndex, setPageIndex, onClick }) {
   }, [pageIndex]); // Depend on `currentText`
   const textList = [
     "",
-    "เอาล่ะ...,เราได้บันทึกเรื่องราวของคุณ" + username + ",ลงไดอารี่เล่มนี้เรียบร้อยแล้ว",
+    "เอาล่ะ...,เราได้บันทึกเรื่องราวของคุณ " + username + ",ลงไดอารี่เล่มนี้เรียบร้อยแล้ว",
     "ไม่ว่าที่ผ่านมาจะยากแค่ไหน,คุณเก่งมากที่ผ่านมันมาได้...."
 
   ];
@@ -601,28 +604,38 @@ function SeventhPage({ pageIndex, setPageIndex, userName, onClick, inputs, answe
   }
   if ([1].includes(pageIndex)) {
     const newUser = {
-      username : userName,
-      goals : inputs
+      username: userName,
+      goals: inputs
     }
     addUser(newUser);
 
     return (
       <div className='FinalPage'>
-        ของที่ระลึกจากเรา BuildBiz
+        <div className='nato-sans-thai-bold'>
+          ของที่ระลึกจากเรา BuildBiz
+        </div>
         <div className='GiftBox' >
-          <div style={{ "paddingTop": "3%" }}>
+          <div style={{ "paddingTop": "3%" }} className='nato-sans-thai-bold'>
             "{userName}"
           </div>
           <div className='GiftMessage'>
-            เป้าหมายอันยิ่งใหญ่
-            <div className='Goals-3'>
-              <span>1. {inputs[0]}</span>
-              <span>2. {inputs[1]}</span>
-              <span>3. {inputs[2]}</span>
+            <div className='goal-box'>
+              <div className='nato-sans-thai-bold'>
+                เป้าหมายอันยิ่งใหญ่
+              </div>
+              <div className='Goals-3'>
+                <span>1. {inputs[0]}</span>
+                <span>2. {inputs[1]}</span>
+                <span>3. {inputs[2]}</span>
+              </div>
             </div>
-            เส้นทางสู่ความสำเร็จ <br />
-            <div className='answer'>
-              {answer}
+            <div className='success-way'>
+              <div className='nato-sans-thai-bold'>
+                เส้นทางสู่ความสำเร็จ <br />
+              </div>
+              <div className='answer'>
+                {answer}
+              </div>
             </div>
           </div>
           < div className='FinalQoute'>
@@ -826,7 +839,7 @@ function App() {
         }
         {
           bgIndex === 7 && (
-              <SixthPage setPageIndex={setPageIndex} pageIndex={pageIndex} onClick={handleSixthPageClick} />
+            <SixthPage setPageIndex={setPageIndex} pageIndex={pageIndex} onClick={handleSixthPageClick} />
           )
         }
         {
